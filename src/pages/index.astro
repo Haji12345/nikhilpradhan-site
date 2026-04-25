@@ -1,0 +1,428 @@
+---
+import BaseHead from '../components/BaseHead.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import FormattedDate from '../components/FormattedDate.astro';
+import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
+import { getCollection } from 'astro:content';
+
+// Pull the 3 most recent posts
+const posts = (await getCollection('blog'))
+	.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
+	.slice(0, 3);
+---
+
+<!doctype html>
+<html lang="en">
+	<head>
+		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
+	</head>
+	<body>
+		<Header />
+
+		<main class="wrap">
+			<!-- HERO -->
+			<header class="hero">
+				<div class="hero-eyebrow reveal">Operator → Strategy → AI PM</div>
+				<h1 class="hero-title reveal">
+					I build operating systems<br />
+					for places <em>spreadsheets forgot.</em>
+				</h1>
+				<p class="hero-sub reveal">
+					Notes from an operator learning to build. CEO of ApiCare in Sikkim, Erasmus
+					Mundus MBA Fellow across Croatia, Lithuania, and Belgium. Currently moving
+					toward product roles where AI meets operations.
+				</p>
+				<div class="hero-meta reveal">
+					<span>Vilnius, en route to Brussels</span>
+					<span>Available January 2027</span>
+					<span>EU work-eligible</span>
+				</div>
+			</header>
+
+			<!-- POSTS FEED -->
+			<section class="section" id="posts">
+				<div class="section-label">
+					<span>Posts — what I'm learning</span>
+					<a href="/blog">All posts →</a>
+				</div>
+
+				<ul class="post-list">
+					{
+						posts.map((post) => (
+							<li class="post-item">
+								<a href={`/blog/${post.id}/`} class="post-link">
+									<div class="post-date">
+										<FormattedDate date={post.data.pubDate} />
+									</div>
+									<div class="post-content">
+										<div class="post-title">{post.data.title}</div>
+										<div class="post-teaser">{post.data.description}</div>
+									</div>
+								</a>
+							</li>
+						))
+					}
+				</ul>
+			</section>
+
+			<!-- CASE STUDIES -->
+			<section class="section" id="work">
+				<div class="section-label">
+					<span>Work — what I've shipped</span>
+				</div>
+
+				<div class="case-grid">
+					<a
+						href="https://haji12345.github.io/Apicare-Farmers/"
+						class="case"
+						target="_blank"
+						rel="noopener"
+					>
+						<div class="case-tag">In build · 2026</div>
+						<div class="case-name">FarmLedger</div>
+						<div class="case-desc">
+							WhatsApp-native AI traceability and credit-profile platform for the
+							world's smallest farms. Multimodal AI extracts data from farmer-submitted
+							photos.
+						</div>
+						<div class="case-stats">
+							<div><strong>Glide + Azure AI</strong>Stack</div>
+							<div><strong>125+</strong>Farmers</div>
+							<div><strong>Live demo</strong>Prototype</div>
+						</div>
+					</a>
+
+					<a href="https://www.apicare.co.in" class="case" target="_blank" rel="noopener" class="case">
+						<div class="case-tag">Operating · 2020 →</div>
+						<div class="case-name">ApiCare</div>
+						<div class="case-desc">
+							Agri-tech venture in Sikkim under World Bank RAMP partnership with the
+							Government of Sikkim. Honey production, smallholder beekeepers, EU export
+							track.
+						</div>
+						<div class="case-stats">
+							<div><strong>€22K+</strong>Revenue</div>
+							<div><strong>World Bank</strong>RAMP</div>
+							<div><strong>104</strong>Trainees</div>
+						</div>
+					</a>
+				</div>
+			</section>
+
+			<!-- ABOUT -->
+			<section class="section" id="about">
+				<div class="section-label">
+					<span>About</span>
+				</div>
+
+				<p class="about-text">
+					Earlier: scaled multiple SMEs from <em>zero to seven-figure revenue</em> across
+					India. Currently: CEO of ApiCare, Erasmus Mundus MBA Fellow across Croatia,
+					Lithuania, and Belgium. Heading toward product roles where AI meets operations
+					— at platform companies that take low-resource contexts seriously.
+				</p>
+
+				<div class="about-links">
+					<a href="/about">Full bio</a>
+					<a href="/cv.pdf">CV (PDF)</a>
+					<a href="https://www.linkedin.com/in/nikhil-jabez-pradhan/" target="_blank" rel="noopener">
+						LinkedIn
+					</a>
+					<a href="mailto:hello@nikhilpradhan.in">hello@nikhilpradhan.in</a>
+				</div>
+			</section>
+		</main>
+
+		<Footer />
+	</body>
+</html>
+
+<style>
+	/* ===== HERO ===== */
+	.hero {
+		padding: 96px 0 72px;
+		border-bottom: 1px solid var(--rule);
+	}
+
+	.hero-eyebrow {
+		font-family: var(--font-mono), monospace;
+		font-size: 12px;
+		letter-spacing: 0.12em;
+		text-transform: uppercase;
+		color: var(--ink-faint);
+		margin-bottom: 24px;
+		display: flex;
+		align-items: center;
+		gap: 12px;
+	}
+
+	.hero-eyebrow::before {
+		content: '';
+		width: 24px;
+		height: 1px;
+		background: var(--accent);
+	}
+
+	.hero-title {
+		font-family: var(--font-serif), Georgia, serif;
+		font-weight: 500;
+		font-size: clamp(38px, 5.5vw, 56px);
+		line-height: 1.08;
+		letter-spacing: -0.02em;
+		color: var(--ink);
+		margin-bottom: 28px;
+	}
+
+	.hero-title em {
+		font-style: italic;
+		color: var(--accent);
+	}
+
+	.hero-sub {
+		font-family: var(--font-serif), Georgia, serif;
+		font-size: 19px;
+		line-height: 1.5;
+		color: var(--ink-soft);
+		max-width: 560px;
+		font-weight: 400;
+		font-style: italic;
+	}
+
+	.hero-meta {
+		margin-top: 40px;
+		display: flex;
+		gap: 28px;
+		font-family: var(--font-mono), monospace;
+		font-size: 12px;
+		color: var(--ink-faint);
+		letter-spacing: 0.02em;
+		flex-wrap: wrap;
+	}
+
+	.hero-meta span::before {
+		content: '→ ';
+		color: var(--accent);
+	}
+
+	/* ===== POSTS LIST ===== */
+	.post-list {
+		list-style: none;
+		display: flex;
+		flex-direction: column;
+		padding: 0;
+		margin: 0;
+	}
+
+	.post-item {
+		border-top: 1px solid var(--rule-soft);
+	}
+
+	.post-item:first-child {
+		border-top: none;
+	}
+
+	.post-link {
+		display: grid;
+		grid-template-columns: 80px 1fr;
+		gap: 24px;
+		align-items: baseline;
+		padding: 28px 16px;
+		margin: 0 -16px;
+		border-radius: 2px;
+		transition: background 0.2s;
+		text-decoration: none;
+		color: inherit;
+	}
+
+	.post-link:hover {
+		background: var(--bg-elev);
+		opacity: 1;
+	}
+
+	.post-link:hover .post-title {
+		color: var(--accent);
+	}
+
+	.post-date {
+		font-family: var(--font-mono), monospace;
+		font-size: 11px;
+		color: var(--ink-faint);
+		letter-spacing: 0.05em;
+		padding-top: 6px;
+		text-transform: uppercase;
+	}
+
+	.post-content {
+		display: flex;
+		flex-direction: column;
+		gap: 6px;
+	}
+
+	.post-title {
+		font-family: var(--font-serif), Georgia, serif;
+		font-size: 22px;
+		line-height: 1.25;
+		font-weight: 500;
+		color: var(--ink);
+		letter-spacing: -0.01em;
+		transition: color 0.2s;
+	}
+
+	.post-teaser {
+		font-family: var(--font-sans), sans-serif;
+		font-size: 15px;
+		color: var(--ink-soft);
+		line-height: 1.5;
+	}
+
+	/* ===== CASE STUDIES ===== */
+	.case-grid {
+		display: grid;
+		grid-template-columns: 1fr 1fr;
+		gap: 24px;
+	}
+
+	.case {
+		padding: 32px;
+		background: var(--bg-elev);
+		border: 1px solid var(--rule);
+		border-radius: 3px;
+		text-decoration: none;
+		color: var(--ink);
+		transition:
+			border-color 0.25s ease,
+			transform 0.25s ease;
+		position: relative;
+		display: block;
+	}
+
+	.case::after {
+		content: '→';
+		position: absolute;
+		top: 32px;
+		right: 32px;
+		font-family: var(--font-mono), monospace;
+		color: var(--ink-faint);
+		transition:
+			transform 0.25s,
+			color 0.25s;
+	}
+
+	.case:hover {
+		border-color: var(--accent);
+		transform: translateY(-2px);
+		opacity: 1;
+	}
+
+	.case:hover::after {
+		transform: translateX(4px);
+		color: var(--accent);
+	}
+
+	.case-tag {
+		font-family: var(--font-mono), monospace;
+		font-size: 10px;
+		letter-spacing: 0.15em;
+		text-transform: uppercase;
+		color: var(--accent);
+		margin-bottom: 16px;
+	}
+
+	.case-name {
+		font-family: var(--font-serif), Georgia, serif;
+		font-size: 26px;
+		line-height: 1.15;
+		font-weight: 500;
+		margin-bottom: 12px;
+		letter-spacing: -0.01em;
+	}
+
+	.case-desc {
+		font-family: var(--font-sans), sans-serif;
+		font-size: 14px;
+		color: var(--ink-soft);
+		line-height: 1.5;
+		margin-bottom: 20px;
+	}
+
+	.case-stats {
+		display: flex;
+		gap: 20px;
+		font-family: var(--font-mono), monospace;
+		font-size: 11px;
+		color: var(--ink-faint);
+		letter-spacing: 0.03em;
+		border-top: 1px solid var(--rule);
+		padding-top: 16px;
+	}
+
+	.case-stats strong {
+		color: var(--ink);
+		font-weight: 500;
+		display: block;
+		font-size: 13px;
+		margin-bottom: 2px;
+	}
+
+	/* ===== ABOUT ===== */
+	.about-text {
+		font-family: var(--font-serif), Georgia, serif;
+		font-size: 19px;
+		line-height: 1.6;
+		color: var(--ink);
+		max-width: 600px;
+		font-weight: 400;
+	}
+
+	.about-text em {
+		color: var(--accent);
+		font-style: italic;
+	}
+
+	.about-links {
+		margin-top: 32px;
+		display: flex;
+		gap: 24px;
+		font-family: var(--font-mono), monospace;
+		font-size: 13px;
+		flex-wrap: wrap;
+	}
+
+	.about-links a {
+		color: var(--accent);
+		text-decoration: none;
+		border-bottom: 1px solid var(--accent);
+		padding-bottom: 2px;
+		transition: opacity 0.2s;
+	}
+
+	.about-links a:hover {
+		opacity: 0.7;
+	}
+
+	/* ===== RESPONSIVE ===== */
+	@media (max-width: 640px) {
+		.hero {
+			padding: 64px 0 56px;
+		}
+		.hero-title {
+			font-size: 36px;
+		}
+		.hero-sub {
+			font-size: 17px;
+		}
+		.hero-meta {
+			gap: 16px;
+			font-size: 11px;
+		}
+		.case-grid {
+			grid-template-columns: 1fr;
+		}
+		.post-link {
+			grid-template-columns: 1fr;
+			gap: 6px;
+			padding: 20px 16px;
+		}
+	}
+</style>

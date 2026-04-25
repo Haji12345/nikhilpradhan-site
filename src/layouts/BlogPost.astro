@@ -1,0 +1,139 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import BaseHead from '../components/BaseHead.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import FormattedDate from '../components/FormattedDate.astro';
+import { Image } from 'astro:assets';
+
+type Props = CollectionEntry<'blog'>['data'];
+
+const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
+---
+
+<!doctype html>
+<html lang="en">
+	<head>
+		<BaseHead title={title} description={description} />
+	</head>
+	<body>
+		<Header />
+
+		<main>
+			<article class="post">
+				<div class="wrap">
+					<header class="post-header">
+						<a href="/blog" class="back-link">← All posts</a>
+						<div class="post-meta">
+							<FormattedDate date={pubDate} />
+							{
+								updatedDate && (
+									<>
+										<span class="separator">·</span>
+										<span class="updated">
+											Updated <FormattedDate date={updatedDate} />
+										</span>
+									</>
+								)
+							}
+						</div>
+						<h1 class="post-title">{title}</h1>
+						<p class="post-description">{description}</p>
+					</header>
+				</div>
+
+				{
+					heroImage && (
+						<div class="hero-image-wrap">
+							<div class="wrap">
+								<Image
+									src={heroImage}
+									alt={title}
+									width={1200}
+									height={675}
+									class="hero-image"
+								/>
+							</div>
+						</div>
+					)
+				}
+
+				<div class="wrap">
+					<div class="prose">
+						<slot />
+					</div>
+				</div>
+			</article>
+		</main>
+
+		<Footer />
+	</body>
+</html>
+
+<style>
+	.post-header {
+		padding: 56px 0 40px;
+	}
+	.back-link {
+		font-family: var(--font-mono), monospace;
+		font-size: 12px;
+		color: var(--ink-faint);
+		text-decoration: none;
+		letter-spacing: 0.05em;
+		margin-bottom: 32px;
+		display: inline-block;
+		transition: color 0.2s;
+	}
+	.back-link:hover {
+		color: var(--accent);
+		opacity: 1;
+	}
+	.post-meta {
+		font-family: var(--font-mono), monospace;
+		font-size: 12px;
+		color: var(--ink-faint);
+		letter-spacing: 0.05em;
+		text-transform: uppercase;
+		margin-bottom: 20px;
+	}
+	.separator {
+		margin: 0 8px;
+	}
+	.post-title {
+		font-family: var(--font-serif), Georgia, serif;
+		font-weight: 500;
+		font-size: clamp(34px, 5vw, 48px);
+		letter-spacing: -0.02em;
+		line-height: 1.1;
+		color: var(--ink);
+		margin-bottom: 20px;
+	}
+	.post-description {
+		font-family: var(--font-serif), Georgia, serif;
+		font-size: 20px;
+		line-height: 1.5;
+		color: var(--ink-soft);
+		font-style: italic;
+		max-width: 560px;
+	}
+	.hero-image-wrap {
+		margin: 24px 0 56px;
+	}
+	.hero-image {
+		width: 100%;
+		height: auto;
+		border-radius: 3px;
+		border: 1px solid var(--rule);
+	}
+	@media (max-width: 640px) {
+		.post-header {
+			padding: 40px 0 32px;
+		}
+		.post-title {
+			font-size: 32px;
+		}
+		.post-description {
+			font-size: 18px;
+		}
+	}
+</style>

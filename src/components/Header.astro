@@ -1,0 +1,66 @@
+---
+import ThemeToggle from './ThemeToggle.astro';
+import { SITE_TITLE } from '../consts';
+---
+
+<header class="site-header">
+	<div class="wrap">
+		<nav class="nav">
+			<a href="/" class="nav-mark">{SITE_TITLE}</a>
+			<div class="nav-links">
+				<a href="/#posts">Posts</a>
+				<a href="/#work">Work</a>
+				<a href="/#about">About</a>
+				<ThemeToggle />
+			</div>
+		</nav>
+	</div>
+</header>
+
+<style>
+	.site-header {
+		padding-top: 32px;
+		position: relative;
+		z-index: 10;
+	}
+	.nav {
+		display: flex;
+		justify-content: space-between;
+		align-items: baseline;
+		font-family: var(--font-mono), monospace;
+		font-size: 13px;
+		letter-spacing: 0.01em;
+	}
+	.nav-mark {
+		color: var(--ink);
+		text-decoration: none;
+		font-weight: 500;
+	}
+	.nav-mark::before {
+		content: '—';
+		margin-right: 8px;
+		color: var(--accent);
+	}
+	.nav-links {
+		display: flex;
+		gap: 24px;
+		align-items: baseline;
+	}
+	.nav-links a {
+		color: var(--ink-soft);
+		text-decoration: none;
+		transition: color 0.2s;
+	}
+	.nav-links a:hover {
+		color: var(--accent);
+		opacity: 1;
+	}
+	@media (max-width: 640px) {
+		.nav {
+			font-size: 12px;
+		}
+		.nav-links {
+			gap: 16px;
+		}
+	}
+</style>

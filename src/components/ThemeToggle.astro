@@ -1,0 +1,53 @@
+---
+// Theme toggle button.
+// Pairs with the inline script in BaseHead.astro that sets initial theme before paint.
+---
+
+<button id="theme-toggle" class="theme-toggle" aria-label="Toggle dark mode">
+	<span id="theme-toggle-label">dark</span>
+</button>
+
+<style>
+	.theme-toggle {
+		background: none;
+		border: 1px solid var(--rule);
+		color: var(--ink-soft);
+		font-family: var(--font-mono), monospace;
+		font-size: 12px;
+		padding: 4px 10px;
+		border-radius: 2px;
+		cursor: pointer;
+		transition:
+			border-color 0.2s,
+			color 0.2s;
+	}
+	.theme-toggle:hover {
+		border-color: var(--accent);
+		color: var(--accent);
+	}
+</style>
+
+<script is:inline>
+	(function () {
+		const btn = document.getElementById('theme-toggle');
+		const label = document.getElementById('theme-toggle-label');
+		if (!btn || !label) return;
+
+		function syncLabel() {
+			const current = document.documentElement.getAttribute('data-theme') || 'light';
+			label.textContent = current === 'dark' ? 'light' : 'dark';
+		}
+
+		syncLabel();
+
+		btn.addEventListener('click', () => {
+			const current = document.documentElement.getAttribute('data-theme') || 'light';
+			const next = current === 'dark' ? 'light' : 'dark';
+			document.documentElement.setAttribute('data-theme', next);
+			try {
+				localStorage.setItem('theme', next);
+			} catch (e) {}
+			syncLabel();
+		});
+	})();
+</script>

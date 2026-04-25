@@ -1,0 +1,48 @@
+---
+const today = new Date();
+---
+
+<footer class="site-footer">
+	<div class="wrap">
+		<div class="footer-inner">
+			<div>© {today.getFullYear()} Nikhil Pradhan</div>
+			<div class="footer-links">
+				<a href="/rss.xml">RSS</a>
+				<a href="https://www.linkedin.com/in/nikhil-jabez-pradhan/" target="_blank" rel="noopener">LinkedIn</a>
+				<a href="mailto:hello@nikhilpradhan.in">Email</a>
+			</div>
+		</div>
+	</div>
+</footer>
+
+<style>
+	.site-footer {
+		padding: 48px 0 64px;
+		border-top: 1px solid var(--rule);
+		margin-top: 48px;
+	}
+	.footer-inner {
+		display: flex;
+		justify-content: space-between;
+		align-items: baseline;
+		font-family: var(--font-mono), monospace;
+		font-size: 12px;
+		color: var(--ink-faint);
+		letter-spacing: 0.02em;
+		flex-wrap: wrap;
+		gap: 16px;
+	}
+	.footer-links {
+		display: flex;
+		gap: 20px;
+	}
+	.footer-links a {
+		color: var(--ink-soft);
+		text-decoration: none;
+		transition: color 0.2s;
+	}
+	.footer-links a:hover {
+		color: var(--accent);
+		opacity: 1;
+	}
+</style>
