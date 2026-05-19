@@ -3,6 +3,6 @@
 
 export const SITE_TITLE = 'Nikhil Pradhan';
 export const SITE_DESCRIPTION =
-	'I build operating systems for places spreadsheets forgot. Notes from an operator learning to build.';
+	'Strategy & Operations | CEO of ApiCare, Sikkim — 125+ smallholder farmers, World Bank partnership, EU export pipeline. Erasmus Mundus MBA across Croatia, Lithuania, and Belgium. Moving to a Strategy & Ops role in Europe, January 2027.';
 export const SITE_URL = 'https://nikhilpradhan.in';
 export const SITE_AUTHOR = 'Nikhil Pradhan';

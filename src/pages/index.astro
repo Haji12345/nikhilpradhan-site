@@ -23,27 +23,98 @@ const posts = (await getCollection('blog'))
 		<main class="wrap">
 			<!-- HERO -->
 			<header class="hero">
-				<div class="hero-eyebrow reveal">Operator → Strategy → AI PM</div>
+				<div class="hero-eyebrow reveal">Strategy &amp; Operations · Built in hard markets</div>
 				<h1 class="hero-title reveal">
-					I build operating systems<br />
-					for places <em>spreadsheets forgot.</em>
+					Operator who builds<br />
+					where the <em>rails don't exist</em> yet.
 				</h1>
 				<p class="hero-sub reveal">
-					Notes from an operator learning to build. CEO of ApiCare in Sikkim, Erasmus
-					Mundus MBA Fellow across Croatia, Lithuania, and Belgium. Currently moving
-					toward product roles where AI meets operations.
+					Five years building ApiCare — a Sikkim-based agri-platform with 125+ smallholder
+					farmers, a World Bank partnership, and EU export traction. Erasmus Mundus MBA
+					across Croatia, Lithuania, and Belgium. Moving to a Strategy &amp; Ops role in
+					Europe, January 2027.
 				</p>
 				<div class="hero-meta reveal">
-					<span>Vilnius, en route to Brussels</span>
-					<span>Available January 2027</span>
+					<span>Vilnius, en route to Liège</span>
+					<span>Graduating Dec 2026</span>
 					<span>EU work-eligible</span>
+					<span>Open to conversations now</span>
 				</div>
 			</header>
+
+			<!-- PROOF STRIP — quantified signals above the fold -->
+			<section class="proof-strip reveal">
+				<div class="proof-item">
+					<strong>125+</strong>
+					<span>Farmers onboarded</span>
+				</div>
+				<div class="proof-item">
+					<strong>3</strong>
+					<span>Himalayan districts</span>
+				</div>
+				<div class="proof-item">
+					<strong>5 yrs</strong>
+					<span>Operating ApiCare</span>
+				</div>
+				<div class="proof-item">
+					<strong>0</strong>
+					<span>KPMG audit findings (3 cycles)</span>
+				</div>
+				<div class="proof-item">
+					<strong>$15K</strong>
+					<span>2026 seed for FarmLedger</span>
+				</div>
+			</section>
+
+			<!-- CASE STUDIES -->
+			<section class="section" id="work">
+				<div class="section-label">
+					<span>Work — what I've shipped</span>
+				</div>
+
+				<div class="case-grid">
+					<a
+						href="https://haji12345.github.io/Apicare-Farmers/"
+						class="case"
+						target="_blank"
+						rel="noopener"
+					>
+						<div class="case-tag">In build · 2026</div>
+						<div class="case-name">FarmLedger</div>
+						<div class="case-desc">
+							WhatsApp-native AI traceability and credit-profile platform for the
+							world's smallest farms. Multimodal AI extracts data from farmer-submitted
+							photos to build credit profiles banks can underwrite against.
+						</div>
+						<div class="case-stats">
+							<div><strong>125+</strong>Farmers</div>
+							<div><strong>$15K</strong>2026 seed</div>
+							<div><strong>Live demo</strong>Prototype</div>
+						</div>
+					</a>
+
+					<a href="https://www.apicare.co.in" class="case" target="_blank" rel="noopener">
+						<div class="case-tag">Operating · 2020 →</div>
+						<div class="case-name">ApiCare</div>
+						<div class="case-desc">
+							Agri-tech venture in Sikkim under World Bank RAMP partnership with the
+							Government of Sikkim. Honey production, smallholder beekeepers, EU export
+							pipeline. Two-time government empanelment. Zero KPMG findings across three
+							audit cycles.
+						</div>
+						<div class="case-stats">
+							<div><strong>World Bank</strong>RAMP partner</div>
+							<div><strong>104</strong>Farmers trained</div>
+							<div><strong>3</strong>Districts</div>
+						</div>
+					</a>
+				</div>
+			</section>
 
 			<!-- POSTS FEED -->
 			<section class="section" id="posts">
 				<div class="section-label">
-					<span>Posts — what I'm learning</span>
+					<span>Field notes</span>
 					<a href="/blog">All posts →</a>
 				</div>
 
@@ -66,50 +137,6 @@ const posts = (await getCollection('blog'))
 				</ul>
 			</section>
 
-			<!-- CASE STUDIES -->
-			<section class="section" id="work">
-				<div class="section-label">
-					<span>Work — what I've shipped</span>
-				</div>
-
-				<div class="case-grid">
-					<a
-						href="https://haji12345.github.io/Apicare-Farmers/"
-						class="case"
-						target="_blank"
-						rel="noopener"
-					>
-						<div class="case-tag">In build · 2026</div>
-						<div class="case-name">FarmLedger</div>
-						<div class="case-desc">
-							WhatsApp-native AI traceability and credit-profile platform for the
-							world's smallest farms. Multimodal AI extracts data from farmer-submitted
-							photos.
-						</div>
-						<div class="case-stats">
-							<div><strong>Glide + Azure AI</strong>Stack</div>
-							<div><strong>125+</strong>Farmers</div>
-							<div><strong>Live demo</strong>Prototype</div>
-						</div>
-					</a>
-
-					<a href="https://www.apicare.co.in" class="case" target="_blank" rel="noopener" class="case">
-						<div class="case-tag">Operating · 2020 →</div>
-						<div class="case-name">ApiCare</div>
-						<div class="case-desc">
-							Agri-tech venture in Sikkim under World Bank RAMP partnership with the
-							Government of Sikkim. Honey production, smallholder beekeepers, EU export
-							track.
-						</div>
-						<div class="case-stats">
-							<div><strong>€22K+</strong>Revenue</div>
-							<div><strong>World Bank</strong>RAMP</div>
-							<div><strong>104</strong>Trainees</div>
-						</div>
-					</a>
-				</div>
-			</section>
-
 			<!-- ABOUT -->
 			<section class="section" id="about">
 				<div class="section-label">
@@ -117,10 +144,11 @@ const posts = (await getCollection('blog'))
 				</div>
 
 				<p class="about-text">
-					Earlier: scaled multiple SMEs from <em>zero to seven-figure revenue</em> across
-					India. Currently: CEO of ApiCare, Erasmus Mundus MBA Fellow across Croatia,
-					Lithuania, and Belgium. Heading toward product roles where AI meets operations
-					— at platform companies that take low-resource contexts seriously.
+					I build operational infrastructure for places spreadsheets forgot. CEO of
+					ApiCare since 2020. Currently an Erasmus Mundus MBA Fellow across Croatia,
+					Lithuania, and Belgium — graduating December 2026. Heading toward Strategy
+					&amp; Operations roles at European platform companies that take low-resource
+					contexts seriously.
 				</p>
 
 				<div class="about-links">
@@ -141,8 +169,7 @@ const posts = (await getCollection('blog'))
 <style>
 	/* ===== HERO ===== */
 	.hero {
-		padding: 96px 0 72px;
-		border-bottom: 1px solid var(--rule);
+		padding: 96px 0 56px;
 	}
 
 	.hero-eyebrow {
@@ -184,7 +211,7 @@ const posts = (await getCollection('blog'))
 		font-size: 19px;
 		line-height: 1.5;
 		color: var(--ink-soft);
-		max-width: 560px;
+		max-width: 600px;
 		font-weight: 400;
 		font-style: italic;
 	}
@@ -192,7 +219,7 @@ const posts = (await getCollection('blog'))
 	.hero-meta {
 		margin-top: 40px;
 		display: flex;
-		gap: 28px;
+		gap: 24px;
 		font-family: var(--font-mono), monospace;
 		font-size: 12px;
 		color: var(--ink-faint);
@@ -200,9 +227,43 @@ const posts = (await getCollection('blog'))
 		flex-wrap: wrap;
 	}
 
-	.hero-meta span::before {
+	.hero-meta span:first-child::before {
 		content: '→ ';
 		color: var(--accent);
+	}
+
+	/* ===== PROOF STRIP ===== */
+	.proof-strip {
+		display: grid;
+		grid-template-columns: repeat(5, 1fr);
+		gap: 24px;
+		padding: 28px 0;
+		border-top: 1px solid var(--rule);
+		border-bottom: 1px solid var(--rule);
+		margin-bottom: 8px;
+	}
+
+	.proof-item {
+		display: flex;
+		flex-direction: column;
+		gap: 4px;
+	}
+
+	.proof-item strong {
+		font-family: var(--font-serif), Georgia, serif;
+		font-size: 24px;
+		line-height: 1;
+		font-weight: 500;
+		color: var(--ink);
+		letter-spacing: -0.01em;
+	}
+
+	.proof-item span {
+		font-family: var(--font-mono), monospace;
+		font-size: 11px;
+		color: var(--ink-faint);
+		letter-spacing: 0.04em;
+		line-height: 1.3;
 	}
 
 	/* ===== POSTS LIST ===== */
@@ -402,9 +463,16 @@ const posts = (await getCollection('blog'))
 	}
 
 	/* ===== RESPONSIVE ===== */
+	@media (max-width: 900px) {
+		.proof-strip {
+			grid-template-columns: repeat(3, 1fr);
+			row-gap: 28px;
+		}
+	}
+
 	@media (max-width: 640px) {
 		.hero {
-			padding: 64px 0 56px;
+			padding: 64px 0 40px;
 		}
 		.hero-title {
 			font-size: 36px;
@@ -415,6 +483,14 @@ const posts = (await getCollection('blog'))
 		.hero-meta {
 			gap: 16px;
 			font-size: 11px;
+		}
+		.proof-strip {
+			grid-template-columns: repeat(2, 1fr);
+			row-gap: 24px;
+			padding: 24px 0;
+		}
+		.proof-item strong {
+			font-size: 22px;
 		}
 		.case-grid {
 			grid-template-columns: 1fr;
