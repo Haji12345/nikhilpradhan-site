@@ -1,0 +1,103 @@
+---
+import type { CaseStudy } from '../../lib/work';
+
+interface Props {
+	entries: CaseStudy[];
+}
+
+const { entries } = Astro.props;
+---
+
+<ol class="cs-list">
+	{
+		entries.map((entry, i) => (
+			<li>
+				<a href={`/case-studies/${entry.id}/`} class="cs-row">
+					<span class="cs-num">{String(i + 1).padStart(2, '0')}</span>
+					<span class="cs-main">
+						<span class="cs-meta">
+							{entry.data.organisation} · {entry.data.period}
+							{entry.data.draft && <span class="cs-draft">draft</span>}
+						</span>
+						<span class="cs-title">{entry.data.title}</span>
+						<span class="cs-summary">{entry.data.summary}</span>
+					</span>
+				</a>
+			</li>
+		))
+	}
+</ol>
+
+<style>
+	.cs-list {
+		list-style: none;
+		padding: 0;
+		margin: 0;
+	}
+	.cs-list li + li {
+		border-top: 1px solid var(--rule-soft);
+	}
+	.cs-row {
+		display: grid;
+		grid-template-columns: 48px 1fr;
+		gap: 16px;
+		align-items: baseline;
+		padding: 26px 16px;
+		margin: 0 -16px;
+		border-radius: 2px;
+		color: inherit;
+		transition: background 0.2s;
+	}
+	.cs-row:hover {
+		background: var(--bg-elev);
+		opacity: 1;
+	}
+	.cs-row:hover .cs-title {
+		color: var(--accent);
+	}
+	.cs-num {
+		font-family: var(--font-mono), monospace;
+		font-size: 12px;
+		color: var(--accent);
+	}
+	.cs-main {
+		display: flex;
+		flex-direction: column;
+		gap: 6px;
+	}
+	.cs-meta {
+		font-family: var(--font-mono), monospace;
+		font-size: 11px;
+		letter-spacing: 0.06em;
+		text-transform: uppercase;
+		color: var(--ink-faint);
+	}
+	.cs-draft {
+		margin-left: 8px;
+		padding: 1px 6px;
+		border: 1px dashed var(--accent);
+		border-radius: 2px;
+		color: var(--accent);
+	}
+	.cs-title {
+		font-family: var(--font-serif), Georgia, serif;
+		font-size: 23px;
+		line-height: 1.25;
+		font-weight: 720;
+		color: var(--ink);
+		transition: color 0.2s;
+	}
+	.cs-summary {
+		font-family: var(--font-sans), sans-serif;
+		font-size: 15px;
+		line-height: 1.5;
+		color: var(--ink-soft);
+	}
+	@media (max-width: 640px) {
+		.cs-row {
+			grid-template-columns: 1fr;
+			gap: 6px;
+			padding: 20px 16px;
+		}
+	}
+</style>

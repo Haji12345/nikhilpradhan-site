@@ -1,0 +1,167 @@
+---
+import { render } from 'astro:content';
+import BaseHead from '../../components/BaseHead.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+import TourismCard from '../../components/tourism/TourismCard.astro';
+import Gallery from '../../components/tourism/Gallery.astro';
+import { SITE_TITLE } from '../../consts';
+import { getTourismProjects } from '../../lib/work';
+import { gallery } from '../../data/gallery';
+
+const projects = await Promise.all(
+	(await getTourismProjects()).map(async (project) => ({
+		project,
+		Content: project.body?.trim() ? (await render(project)).Content : null,
+	})),
+);
+---
+
+<!doctype html>
+<html lang="en">
+	<head>
+		<BaseHead
+			title={`Tourism & hospitality — ${SITE_TITLE}`}
+			description="Websites, digital presence and content for hospitality businesses, as an independent consultant and an Erasmus+ trainee."
+		/>
+	</head>
+	<body>
+		<Header />
+
+		<main>
+			<header class="page-head wrap">
+				<span class="eyebrow reveal">Tourism &amp; hospitality</span>
+				<h1 class="display page-title reveal">Helping places <span class="accent">tell their story.</span></h1>
+				<p class="lead reveal">
+					Websites, digital presence and content for homestays, retreats and a hotel — from the Eastern
+					Himalaya to the Adriatic.
+				</p>
+			</header>
+
+			<section class="wrap" aria-label="Independent consulting">
+				<div class="role">
+					<div class="role-meta">
+						<span class="eyebrow">Independent Consultant</span>
+						<span class="role-when">Mar 2023 – Jul 2025 · Sikkim, India</span>
+					</div>
+					<div>
+						<h2 class="role-title">Digital Product Strategist &amp; Business Development Lead</h2>
+						<p class="role-desc">
+							Freelance engagement — digital product deployment, systems design, and B2B business development
+							for hospitality SMEs.
+						</p>
+						<ul class="role-points">
+							<li>
+								Deployed end-to-end digital infrastructure for 6+ hospitality SMEs — WordPress builds, eZee
+								channel manager integration, OTA onboarding, and booking automation.
+							</li>
+							<li>
+								Generated 300,000+ engagement touchpoints through full-funnel digital strategy (SEO, Meta
+								Business Suite, Google Analytics) for resort clients.
+							</li>
+						</ul>
+					</div>
+				</div>
+			</section>
+
+			<section class="section wrap" aria-label="Projects">
+				<div class="t-grid">
+					{
+						projects.map(({ project, Content }) => (
+							<TourismCard project={project}>{Content && <Content />}</TourismCard>
+						))
+					}
+				</div>
+			</section>
+
+			{
+				gallery.length > 0 && (
+					<section class="section wrap" id="lens">
+						<div class="section-head">
+							<span class="eyebrow">Through the lens</span>
+							<div>
+								<h2 class="h2">Places I've photographed.</h2>
+							</div>
+						</div>
+						<Gallery />
+					</section>
+				)
+			}
+		</main>
+
+		<Footer />
+	</body>
+</html>
+
+<style>
+	.page-head {
+		display: flex;
+		flex-direction: column;
+		gap: 24px;
+		padding-block: clamp(56px, 8vw, 104px) clamp(40px, 6vw, 64px);
+	}
+	.page-title {
+		font-size: clamp(44px, 6.5vw, 88px);
+		max-width: 960px;
+	}
+	.role {
+		display: grid;
+		grid-template-columns: minmax(180px, 1fr) 3fr;
+		gap: 24px 40px;
+		padding: clamp(28px, 4vw, 44px);
+		border-radius: var(--radius-lg);
+		background: var(--bg-elev);
+		border: 1px solid var(--rule);
+	}
+	.role-meta {
+		display: flex;
+		flex-direction: column;
+		gap: 10px;
+	}
+	.role-when {
+		font-size: 14px;
+		color: var(--ink-soft);
+	}
+	.role-title {
+		font-size: clamp(24px, 2.8vw, 34px);
+		font-weight: 730;
+		letter-spacing: -0.04em;
+		line-height: 1.1;
+		margin-bottom: 12px;
+	}
+	.role-desc,
+	.role-points {
+		font-size: 16px;
+		line-height: 1.6;
+		color: var(--ink-soft);
+	}
+	.role-desc {
+		margin-bottom: 14px;
+	}
+	.role-points {
+		margin-left: 1.1em;
+	}
+	.role-points li {
+		margin-bottom: 6px;
+	}
+	.t-grid {
+		display: grid;
+		grid-template-columns: repeat(3, 1fr);
+		gap: clamp(32px, 4vw, 48px) clamp(20px, 2.4vw, 28px);
+	}
+	@media (max-width: 800px) {
+		.role {
+			grid-template-columns: 1fr;
+		}
+	}
+	@media (max-width: 960px) {
+		.t-grid {
+			grid-template-columns: repeat(2, 1fr);
+		}
+	}
+	@media (max-width: 720px) {
+		.t-grid {
+			grid-template-columns: 1fr;
+		}
+	}
+</style>

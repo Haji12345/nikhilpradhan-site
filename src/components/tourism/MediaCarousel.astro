@@ -1,0 +1,207 @@
+---
+/**
+ * Swipeable photo/video carousel with prev/next buttons and an "01 / 04" counter.
+ * - Uses native CSS scroll-snap (works with touch, trackpad and keyboard; no library).
+ * - Videos are silent loops that play only while their slide is showing and on screen,
+ *   and never autoplay for people who prefer reduced motion.
+ */
+import { Image, getImage } from 'astro:assets';
+import type { ImageMetadata } from 'astro';
+
+type Item =
+	| { type: 'image'; src: ImageMetadata; alt: string }
+	| { type: 'video'; src: string; poster: ImageMetadata; alt: string };
+
+interface Props {
+	items: Item[];
+	label: string; // accessible name, e.g. project name
+	placeholder?: string; // text shown when there is no media yet
+	ratio?: string; // CSS aspect-ratio, default 4 / 3
+}
+
+const { items, label, placeholder = label, ratio = '4 / 3' } = Astro.props;
+const total = items.length;
+const pad = (n: number) => String(n).padStart(2, '0');
+
+const slides = await Promise.all(
+	items.map(async (item) => ({
+		...item,
+		posterUrl: item.type === 'video' ? (await getImage({ src: item.poster, width: 1000 })).src : '',
+	})),
+);
+---
+
+<div class="mc media-frame" style={`aspect-ratio: ${ratio}`} data-carousel role="region" aria-roledescription="carousel" aria-label={label}>
+	{
+		total === 0 ? (
+			<div class="media-placeholder">{placeholder}</div>
+		) : (
+			<>
+				<div class="mc-track" tabindex="0">
+					{slides.map((s, i) => (
+						<div class="mc-slide" role="group" aria-roledescription="slide" aria-label={`${i + 1} of ${total}`}>
+							{s.type === 'image' ? (
+								<Image src={s.src} alt={s.alt} width={1000} loading={i === 0 ? 'eager' : 'lazy'} />
+							) : (
+								<video src={s.src} poster={s.posterUrl} muted loop playsinline preload="none" aria-label={s.alt}></video>
+							)}
+						</div>
+					))}
+				</div>
+				{total > 1 && (
+					<>
+						<span class="media-badge mc-count" aria-live="polite">
+							<span data-current>01</span> / {pad(total)}
+						</span>
+						<button class="mc-btn mc-prev" type="button" aria-label="Previous">←</button>
+						<button class="mc-btn mc-next" type="button" aria-label="Next">→</button>
+						<div class="mc-dots" aria-hidden="true">
+							{slides.map((_, i) => <span class:list={['mc-dot', { on: i === 0 }]} />)}
+						</div>
+					</>
+				)}
+			</>
+		)
+	}
+</div>
+
+<script>
+	const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+	document.querySelectorAll<HTMLElement>('[data-carousel]').forEach((root) => {
+		const track = root.querySelector<HTMLElement>('.mc-track');
+		if (!track) return;
+		const slides = Array.from(track.querySelectorAll<HTMLElement>('.mc-slide'));
+		const current = root.querySelector<HTMLElement>('[data-current]');
+		const dots = Array.from(root.querySelectorAll<HTMLElement>('.mc-dot'));
+		let index = 0;
+		let onScreen = false;
+
+		const syncVideos = () => {
+			slides.forEach((slide, i) => {
+				const v = slide.querySelector('video');
+				if (!v) return;
+				if (i === index && onScreen && !reduce) {
+					v.preload = 'auto';
+					v.play().catch(() => {});
+				} else {
+					v.pause();
+				}
+			});
+		};
+
+		const setIndex = (i: number) => {
+			index = i;
+			if (current) current.textContent = String(i + 1).padStart(2, '0');
+			dots.forEach((d, j) => d.classList.toggle('on', j === i));
+			syncVideos();
+		};
+
+		// Which slide is showing?
+		const slideObserver = new IntersectionObserver(
+			(entries) => {
+				for (const e of entries) {
+					if (e.isIntersecting && e.intersectionRatio > 0.6) setIndex(slides.indexOf(e.target as HTMLElement));
+				}
+			},
+			{ root: track, threshold: [0.6] },
+		);
+		slides.forEach((s) => slideObserver.observe(s));
+
+		// Is the carousel on screen at all?
+		new IntersectionObserver((entries) => {
+			onScreen = entries[0].isIntersecting;
+			syncVideos();
+		}).observe(root);
+
+		const go = (dir: number) => {
+			const next = Math.max(0, Math.min(slides.length - 1, index + dir));
+			track.scrollTo({ left: slides[next].offsetLeft, behavior: reduce ? 'auto' : 'smooth' });
+		};
+		root.querySelector('.mc-prev')?.addEventListener('click', () => go(-1));
+		root.querySelector('.mc-next')?.addEventListener('click', () => go(1));
+		track.addEventListener('keydown', (e) => {
+			if (e.key === 'ArrowRight') { e.preventDefault(); go(1); }
+			if (e.key === 'ArrowLeft') { e.preventDefault(); go(-1); }
+		});
+	});
+</script>
+
+<style>
+	.mc {
+		width: 100%;
+	}
+	.mc-track {
+		display: flex;
+		height: 100%;
+		overflow-x: auto;
+		scroll-snap-type: x mandatory;
+		scrollbar-width: none;
+		overscroll-behavior-x: contain;
+	}
+	.mc-track::-webkit-scrollbar {
+		display: none;
+	}
+	.mc-slide {
+		flex: 0 0 100%;
+		height: 100%;
+		scroll-snap-align: start;
+	}
+	.mc-slide :global(img),
+	.mc-slide video {
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+	}
+	.mc-btn {
+		position: absolute;
+		bottom: 16px;
+		width: 40px;
+		height: 40px;
+		border-radius: 50%;
+		border: none;
+		background: rgba(255, 255, 255, 0.92);
+		color: #11110f;
+		font-size: 16px;
+		cursor: pointer;
+		opacity: 0;
+		transition: opacity 0.2s, transform 0.2s;
+	}
+	.mc-prev {
+		right: 64px;
+	}
+	.mc-next {
+		right: 16px;
+	}
+	.mc:hover .mc-btn,
+	.mc:focus-within .mc-btn {
+		opacity: 1;
+	}
+	.mc-btn:hover {
+		transform: scale(1.06);
+	}
+	@media (hover: none) {
+		.mc-btn {
+			opacity: 1;
+		}
+	}
+	.mc-dots {
+		position: absolute;
+		left: 16px;
+		bottom: 30px;
+		display: flex;
+		gap: 6px;
+	}
+	.mc-dot {
+		width: 6px;
+		height: 6px;
+		border-radius: 50%;
+		background: rgba(255, 255, 255, 0.55);
+		transition: width 0.25s, background 0.25s;
+	}
+	.mc-dot.on {
+		width: 18px;
+		border-radius: 3px;
+		background: #fff;
+	}
+</style>

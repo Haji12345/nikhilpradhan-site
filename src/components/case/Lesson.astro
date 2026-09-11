@@ -1,0 +1,42 @@
+---
+/**
+ * A short "what I learned / what I'd do differently" note. Honest reflection reads as human.
+ *   <Lesson>We trained before we had buyers lined up. Next time: buyer first, then training.</Lesson>
+ */
+interface Props {
+	label?: string;
+}
+const { label = 'What I’d do differently' } = Astro.props;
+---
+
+<aside class="lesson">
+	<div class="lesson-label">{label}</div>
+	<div class="lesson-body"><slot /></div>
+</aside>
+
+<style>
+	.lesson {
+		margin: 2em 0;
+		padding: 20px 24px;
+		background: var(--bg-elev);
+		border: 1px solid var(--rule);
+		border-radius: var(--radius-md);
+	}
+	.lesson-label {
+		font-family: var(--font-mono), monospace;
+		font-size: 10px;
+		letter-spacing: 0.15em;
+		text-transform: uppercase;
+		color: var(--accent);
+		margin-bottom: 8px;
+	}
+	.lesson-body {
+		font-family: var(--font-sans), sans-serif;
+		font-size: 16px;
+		line-height: 1.55;
+		color: var(--ink);
+	}
+	.lesson-body :global(p) {
+		margin: 0;
+	}
+</style>

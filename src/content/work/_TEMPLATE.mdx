@@ -1,0 +1,55 @@
+---
+# ─────────────────────────────────────────────────────────────────────────────
+# CASE STUDY TEMPLATE
+# 1. Copy this file and rename it, e.g. `hotel-porec-content.mdx`
+#    (the file name becomes the URL: nikhilpradhan.in/work/hotel-porec-content/).
+# 2. Fill in the frontmatter and the five sections below.
+# 3. Preview with `npm run dev` → http://localhost:4321/work
+# 4. When it's ready, set `draft: false`, commit and push.
+# Files starting with `_` (like this one) are never published.
+# ─────────────────────────────────────────────────────────────────────────────
+title: 'A title that names the problem, not just the project'
+summary: 'One or two sentences: the situation, what you did, and what changed.'
+role: 'Your role'
+organisation: 'Organisation'
+period: 'Mon YYYY – Mon YYYY'
+location: 'City, Country'
+themes: ['Programme delivery', 'Digital for development']
+stakeholders: ['Who was in the room']
+metrics:
+  - { value: '0', label: 'Only numbers you could defend in an interview' }
+# heroImage: '../../assets/work/your-case/hero.jpg'
+# heroAlt: 'Describe the photo for screen readers'
+# heroCaption: 'Place, year. Who took it.'
+order: 10
+featured: false
+draft: true
+---
+
+import Voice from '../../components/case/Voice.astro';
+import Photo from '../../components/case/Photo.astro';
+import Lesson from '../../components/case/Lesson.astro';
+
+{/* Aim for 800–1,500 words. Write it the way you'd tell it over coffee, then tighten. */}
+
+## The situation
+
+{/* Where, when, and why it mattered. One concrete scene beats three paragraphs of context. */}
+
+## The problem
+
+{/* What was broken or missing? Who did it affect? What constraints did you have (money, time, rules, connectivity)? */}
+
+## What I did
+
+{/* Your decisions, in order. Name the trade-offs. Say "I" for what you did and "we" for what the team did. */}
+
+{/* <Voice who="Role or name (with permission)" where="Place">Their words.</Voice> */}
+
+## What changed
+
+{/* Outcomes with numbers where you have them, and what is still unfinished. */}
+
+## What I learned
+
+<Lesson>{/* One honest thing you'd do differently. */}</Lesson>

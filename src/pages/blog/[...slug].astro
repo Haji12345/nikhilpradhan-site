@@ -1,20 +1,14 @@
 ---
-import { type CollectionEntry, getCollection, render } from 'astro:content';
-import BlogPost from '../../layouts/BlogPost.astro';
+// Moved: /blog/<slug>/ now lives at /case-studies/<slug>/. Keeps old links working.
+import { getCollection } from 'astro:content';
 
 export async function getStaticPaths() {
 	const posts = await getCollection('blog');
-	return posts.map((post) => ({
-		params: { slug: post.id },
-		props: post,
-	}));
+	return posts.map((post) => ({ params: { slug: post.id } }));
 }
-type Props = CollectionEntry<'blog'>;
 
-const post = Astro.props;
-const { Content } = await render(post);
+const target = `/case-studies/${Astro.params.slug}/`;
 ---
 
-<BlogPost {...post.data}>
-	<Content />
-</BlogPost>
+<meta http-equiv="refresh" content={`0; url=${target}`} />
+<link rel="canonical" href={target} />

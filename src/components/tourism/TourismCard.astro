@@ -1,0 +1,157 @@
+---
+import type { TourismProject } from '../../lib/work';
+import MediaCarousel from './MediaCarousel.astro';
+
+interface Props {
+	project: TourismProject;
+	index?: number;
+	total?: number;
+}
+
+const { project } = Astro.props;
+const { name, place, role, engagement, services, period, link, instagram, media, draft } = project.data;
+const igHandle = instagram ? '@' + instagram.replace(/\/+$/, '').split('/').pop() : null;
+---
+
+<article class="t-card" id={project.id}>
+	<MediaCarousel items={media} label={name} placeholder={place.split(',')[0]} ratio="4 / 5" />
+	<div class="t-body">
+		<div class="t-top">
+			<div class="t-meta">
+				{engagement && <span>{engagement}</span>}
+				<span>{place}{period && ` · ${period}`}</span>
+				{draft && <span class="t-draft">draft</span>}
+			</div>
+			{
+				link && (
+					<a class="t-arrow" href={link.href} target="_blank" rel="noopener" aria-label={`Visit ${link.label}`}>
+						↗
+					</a>
+				)
+			}
+		</div>
+		<h3 class="t-name">{name}</h3>
+		<p class="t-role">{role}</p>
+		{Astro.slots.has('default') && <div class="t-desc"><slot /></div>}
+		{
+			services.length > 0 && (
+				<ul class="t-services">
+					{services.map((s) => (
+						<li>{s}</li>
+					))}
+				</ul>
+			)
+		}
+		{
+			(link || instagram) && (
+				<div class="t-links">
+					{link && (
+						<a class="t-link" href={link.href} target="_blank" rel="noopener">
+							{link.label} ↗
+						</a>
+					)}
+					{instagram && (
+						<a class="t-link" href={instagram} target="_blank" rel="noopener" aria-label={`${name} on Instagram`}>
+							<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"></rect><circle cx="12" cy="12" r="4"></circle><circle cx="17.5" cy="6.5" r="1" fill="currentColor"></circle></svg>
+							{igHandle}
+						</a>
+					)}
+				</div>
+			)
+		}
+	</div>
+</article>
+
+<style>
+	.t-card {
+		display: flex;
+		flex-direction: column;
+		gap: 20px;
+	}
+	.t-body {
+		display: flex;
+		flex-direction: column;
+		gap: 8px;
+		padding: 0 4px;
+	}
+	.t-top {
+		display: flex;
+		justify-content: space-between;
+		gap: 12px;
+	}
+	.t-meta {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 4px 12px;
+		font-size: 11px;
+		font-weight: 700;
+		letter-spacing: 0.1em;
+		text-transform: uppercase;
+		color: var(--ink-faint);
+	}
+	.t-meta span:first-child {
+		color: var(--accent);
+	}
+	.t-draft {
+		padding: 0 6px;
+		border: 1px dashed var(--accent);
+		border-radius: 4px;
+	}
+	.t-arrow {
+		font-size: 20px;
+		line-height: 1;
+		color: var(--ink);
+		transition: transform 0.2s;
+	}
+	.t-arrow:hover {
+		transform: translate(2px, -2px);
+	}
+	.t-name {
+		font-size: clamp(24px, 2.6vw, 30px);
+		font-weight: 720;
+		letter-spacing: -0.04em;
+		line-height: 1.1;
+		color: var(--ink);
+	}
+	.t-role {
+		font-size: 16px;
+		color: var(--ink-soft);
+	}
+	.t-desc {
+		font-size: 15px;
+		line-height: 1.6;
+		color: var(--ink-soft);
+	}
+	.t-desc :global(p) {
+		margin: 0 0 0.6em;
+	}
+	.t-services {
+		list-style: none;
+		display: flex;
+		flex-wrap: wrap;
+		gap: 6px;
+		margin-top: 6px;
+	}
+	.t-services li {
+		font-size: 12px;
+		font-weight: 550;
+		color: var(--ink-soft);
+		border: 1px solid var(--rule);
+		border-radius: 999px;
+		padding: 3px 10px;
+	}
+	.t-links {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 8px 20px;
+		margin-top: 8px;
+	}
+	.t-link {
+		display: inline-flex;
+		align-items: center;
+		gap: 6px;
+		font-size: 14px;
+		font-weight: 600;
+		border-bottom: 1px solid var(--accent-fill);
+	}
+</style>

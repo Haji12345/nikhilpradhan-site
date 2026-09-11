@@ -1,0 +1,49 @@
+---
+/**
+ * A captioned photo from the field. Put images in src/assets/work/<case-study>/ and import them:
+ *   import hives from '../../assets/work/apicare/hives.jpg';
+ *   <Photo src={hives} alt="Log hives stacked outside a farmhouse" caption="Zitlang, 2023. Photo: me." />
+ * Use `wide` to let the image break out of the text column on large screens.
+ */
+import { Image } from 'astro:assets';
+import type { ImageMetadata } from 'astro';
+
+interface Props {
+	src: ImageMetadata;
+	alt: string;
+	caption?: string;
+	wide?: boolean;
+}
+const { src, alt, caption, wide = false } = Astro.props;
+---
+
+<figure class:list={['photo', { wide }]}>
+	<Image src={src} alt={alt} width={wide ? 1400 : 1000} />
+	{caption && <figcaption>{caption}</figcaption>}
+</figure>
+
+<style>
+	.photo {
+		margin: 2em 0;
+	}
+	.photo :global(img) {
+		width: 100%;
+		height: auto;
+		margin: 0;
+		border-radius: var(--radius-md);
+		border: 1px solid var(--rule);
+	}
+	.photo figcaption {
+		margin-top: 10px;
+		font-family: var(--font-serif), Georgia, serif;
+		font-size: 15px;
+		line-height: 1.4;
+		color: var(--ink-faint);
+	}
+	@media (min-width: 1000px) {
+		.photo.wide {
+			margin-left: -120px;
+			margin-right: -120px;
+		}
+	}
+</style>

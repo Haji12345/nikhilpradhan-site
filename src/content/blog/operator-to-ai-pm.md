@@ -1,11 +1,11 @@
 ---
-title: 'Why an operator is moving to AI PM'
+title: 'Case #1: Building ApiCare — The Supply Chain Problem and Rural Digital Transformation'
 description: 'On a meeting with the Director of Commerce in Sikkim, the moment I realized what was next, and what I''m doing about it.'
 pubDate: 'Apr 25 2026'
 heroImage: '../../assets/sikkim-hero.jpg'
 ---
 
-In March, I sat across from the Director of Commerce in Sikkim. We'd been working with his department for two years on a World Bank RAMP partnership for organic honey. The conversation had moved from compliance paperwork to something he'd noticed.
+In March, I sat across from the Director of Commerce in Sikkim. We'd been working with his department for two years under RAMP, a World Bank-financed MSME programme the state implements, on organic honey. The conversation had moved from compliance paperwork to something he'd noticed.
 
 "You keep showing me dashboards," he said. "How does the AI actually decide what to flag?"
 

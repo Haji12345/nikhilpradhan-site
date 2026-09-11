@@ -1,0 +1,48 @@
+---
+/**
+ * A quote from someone in the story — a farmer, an official, a teammate.
+ * Real words from real people are the fastest way to make a case study feel human.
+ * Get their permission before publishing a name; use a role ("Beekeeper, Pakyong") otherwise.
+ *
+ * Usage in .mdx:
+ *   <Voice who="Beekeeper" where="Pakyong, Sikkim">Their words, lightly edited.</Voice>
+ */
+interface Props {
+	who: string;
+	where?: string;
+}
+const { who, where } = Astro.props;
+---
+
+<figure class="voice">
+	<blockquote><slot /></blockquote>
+	<figcaption>— {who}{where && <span>, {where}</span>}</figcaption>
+</figure>
+
+<style>
+	.voice {
+		margin: 2.2em 0;
+		padding: 0 0 0 28px;
+		border-left: 2px solid var(--accent);
+	}
+	.voice blockquote {
+		font-family: var(--font-serif), Georgia, serif;
+		font-size: 24px;
+		line-height: 1.4;
+		color: var(--ink);
+		margin: 0;
+		padding: 0;
+		border: none;
+	}
+	.voice blockquote :global(p) {
+		margin: 0;
+	}
+	.voice figcaption {
+		margin-top: 12px;
+		font-family: var(--font-mono), monospace;
+		font-size: 12px;
+		letter-spacing: 0.03em;
+		color: var(--ink-faint);
+		font-style: normal;
+	}
+</style>

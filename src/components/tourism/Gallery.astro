@@ -1,0 +1,47 @@
+---
+import { Image } from 'astro:assets';
+import { gallery } from '../../data/gallery';
+
+interface Props {
+	limit?: number;
+}
+const { limit } = Astro.props;
+const photos = typeof limit === 'number' ? gallery.slice(0, limit) : gallery;
+---
+
+{
+	photos.length > 0 && (
+		<div class="gallery">
+			{photos.map((p) => (
+				<figure class="g-item">
+					<Image src={p.src} alt={p.alt} width={900} class="g-img" />
+					<figcaption>{p.caption}</figcaption>
+				</figure>
+			))}
+		</div>
+	)
+}
+
+<style>
+	.gallery {
+		columns: 3 220px;
+		column-gap: 16px;
+	}
+	.g-item {
+		break-inside: avoid;
+		margin: 0 0 16px;
+	}
+	.g-item :global(.g-img) {
+		width: 100%;
+		height: auto;
+		border-radius: 2px;
+		display: block;
+	}
+	.g-item figcaption {
+		margin-top: 6px;
+		font-family: var(--font-mono), monospace;
+		font-size: 10px;
+		letter-spacing: 0.04em;
+		color: var(--ink-faint);
+	}
+</style>

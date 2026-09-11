@@ -1,0 +1,25 @@
+---
+import { render } from 'astro:content';
+import CaseStudyLayout from '../../layouts/CaseStudy.astro';
+import { getCaseStudies, type CaseStudy } from '../../lib/work';
+
+export async function getStaticPaths() {
+	const entries = await getCaseStudies();
+	return entries.map((entry, i) => ({
+		params: { slug: entry.id },
+		props: { entry, next: entries[i + 1] ?? null },
+	}));
+}
+
+interface Props {
+	entry: CaseStudy;
+	next: CaseStudy | null;
+}
+
+const { entry, next } = Astro.props;
+const { Content } = await render(entry);
+---
+
+<CaseStudyLayout entry={entry} next={next}>
+	<Content />
+</CaseStudyLayout>
