@@ -38,7 +38,7 @@ const ventures = [
 		tag: 'Operating · 2021 →',
 		name: 'ApiCare',
 		desc: 'Agri-tech venture in Sikkim, selected by the Government of Sikkim as a private-sector partner under RAMP — a World Bank-financed MSME programme. Honey production with smallholder beekeepers. Zero KPMG findings across three audit cycles.',
-		stats: ['Govt of Sikkim RAMP partner', '125+ farmers trained', '3 districts'],
+		stats: ['Govt of Sikkim RAMP partner', '104 trained under RAMP', '125+ farmer network'],
 		links: [
 			{ href: 'https://www.apicare.co.in', label: 'apicare.co.in' },
 			{ href: 'https://www.instagram.com/apicare/', label: '@apicare', instagram: true },
@@ -105,7 +105,7 @@ const ventures = [
 				</div>
 
 				<figure class="hero-media media-frame reveal">
-					<Image src={heroImage} alt="Beekeepers in protective suits inspecting a hive frame during a training session in Sikkim" width={900} loading="eager" fetchpriority="high" />
+					<Image src={heroImage} alt="Nikhil Pradhan, in a navy suit, standing against a brick wall" width={900} loading="eager" fetchpriority="high" />
 					<figcaption class="hero-card">
 						<span class="hero-card-label">Now</span>
 						<span>Liège, Belgium · Graduating Dec 2026</span>
@@ -277,6 +277,11 @@ const ventures = [
 	.hero-media {
 		aspect-ratio: 4 / 5;
 		box-shadow: var(--shadow);
+	}
+	/* Portrait photo: keep the face in frame whatever the crop, and leave
+	   headroom above it so the top of the head is never clipped. */
+	.hero-media :global(img) {
+		object-position: 50% 18%;
 	}
 	.hero-card {
 		position: absolute;
@@ -624,7 +629,11 @@ const ventures = [
 			grid-template-columns: 1fr;
 		}
 		.hero-media {
-			aspect-ratio: 16 / 11;
+			/* A portrait photo in a landscape frame crops the head off — keep it
+			   upright on tablets and phones, just a little less tall. */
+			aspect-ratio: 4 / 5;
+			width: min(100%, 420px);
+			margin-inline: auto;
 		}
 		.stats {
 			grid-template-columns: repeat(3, 1fr);

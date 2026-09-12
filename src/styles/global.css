@@ -381,6 +381,65 @@ a {
 	margin: 1.4em 0;
 }
 
+/* Exhibit tables. Markdown gives us a bare <table>; on a narrow screen a
+   wide one would push the whole page sideways, so each is wrapped in its
+   own scroller and only the table scrolls. */
+.prose .table-scroll {
+	margin: 1.8em 0;
+	overflow-x: auto;
+	-webkit-overflow-scrolling: touch;
+	border: 1px solid var(--rule);
+	border-radius: var(--radius-md);
+	background: var(--bg-elev);
+}
+.prose table {
+	width: 100%;
+	min-width: 520px;
+	border-collapse: collapse;
+	font-size: 15px;
+	line-height: 1.5;
+}
+.prose thead th {
+	position: sticky;
+	top: 0;
+	text-align: left;
+	font-size: 12px;
+	font-weight: 700;
+	letter-spacing: 0.08em;
+	text-transform: uppercase;
+	color: var(--ink-soft);
+	background: var(--bg-elev);
+	padding: 14px 16px;
+	border-bottom: 1px solid var(--rule);
+	vertical-align: bottom;
+}
+.prose tbody td {
+	padding: 14px 16px;
+	border-bottom: 1px solid var(--rule-soft);
+	vertical-align: top;
+	color: var(--ink);
+}
+.prose tbody tr:last-child td {
+	border-bottom: none;
+}
+.prose tbody tr:nth-child(even) td {
+	background: color-mix(in srgb, var(--ink) 3%, transparent);
+}
+.prose tbody td:first-child {
+	font-weight: 650;
+	white-space: nowrap;
+}
+@media (max-width: 640px) {
+	.prose table {
+		font-size: 14px;
+		min-width: 460px;
+	}
+	.prose thead th,
+	.prose tbody td {
+		padding: 11px 12px;
+	}
+}
+
 /* ===== MEDIA FRAME ===== */
 .media-frame {
 	position: relative;

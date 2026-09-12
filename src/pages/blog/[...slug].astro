@@ -1,14 +1,13 @@
 ---
-// Moved: /blog/<slug>/ now lives at /case-studies/<slug>/. Keeps old links working.
+// Retired: the blog collection is no longer published. Any old /blog/<slug>
+// link forwards to the case studies index rather than a dead page.
 import { getCollection } from 'astro:content';
 
 export async function getStaticPaths() {
 	const posts = await getCollection('blog');
 	return posts.map((post) => ({ params: { slug: post.id } }));
 }
-
-const target = `/case-studies/${Astro.params.slug}/`;
 ---
 
-<meta http-equiv="refresh" content={`0; url=${target}`} />
-<link rel="canonical" href={target} />
+<meta http-equiv="refresh" content="0; url=/case-studies/" />
+<link rel="canonical" href="/case-studies/" />
