@@ -1,0 +1,99 @@
+---
+title: 'Case #2: The Airport That Looks Close — Straight-Line Distance and Tourism Access in the Eastern Himalaya'
+summary: 'Distance-to-airport is a standard way to measure how reachable a destination is. In the Sikkim valleys it understates the journey by up to six times, and in one case it points to the wrong airport in the wrong country.'
+role: 'Independent analysis (Python)'
+organisation: 'Self-directed research'
+period: 'Oct 2026'
+location: 'Sikkim, India'
+themes: ['Tourism access', 'Spatial analysis', 'Open data', 'Python']
+metrics:
+  - { value: '6', label: 'Aviation facilities in Sikkim: 1 airport, 5 helipads' }
+  - { value: '18', label: 'Destination-to-airport routes measured by road' }
+  - { value: '428 km', label: "By road from Lachung to its 'nearest' airport, 74 km away in a straight line" }
+  - { value: '5.8×', label: 'Highest road-to-straight-line ratio in the study' }
+order: 2
+featured: false
+draft: false
+---
+
+import Photo from '../../components/case/Photo.astro';
+import Lesson from '../../components/case/Lesson.astro';
+import scatter from '../../assets/work/air-connectivity/chart_straight_vs_road.png';
+import gangtok from '../../assets/work/air-connectivity/chart_gangtok.png';
+
+## The situation
+
+Ask how far Gangtok is from an airport and the honest answer depends on what you mean by "far".
+
+Sikkim has an airport. Pakyong, about 30 km south of the capital, opened in September 2018 as one of the highest airports in India. It has also spent long stretches without commercial flights: it was designed for visual flight rules, so weather disrupts it, and one suspension lasted about 19 months ([background](https://en.wikipedia.org/wiki/Pakyong_Airport), [resumption report](https://www.sarkaritel.com/commercial-flight-services-resume-in-sikkim-after-19-months/)). In practice, most visitors still fly into Bagdogra in West Bengal and finish the journey by road.
+
+That matters for anyone who measures tourism access from a desk. A common shortcut in destination diagnostics is distance to the nearest airport, measured as a straight line on a map. It is quick, it needs no road data, and it works reasonably well on flat ground. I wanted to test how well it works in the mountains I grew up in.
+
+## The question
+
+**Does straight-line distance to an airport understate how isolated a mountain destination really is?**
+
+## What I did
+
+I built a reproducible analysis in Python using only open data. The code, data caches and charts are in the [project repository](#reproduce-it).
+
+1. **Inventory.** I loaded the current [OurAirports](https://ourairports.com/data/) file and filtered it to Sikkim. It lists 7 facilities. One of them, Pedong Helipad, is actually in West Bengal's Kalimpong district, so I corrected it. That leaves **6: Pakyong Airport and 5 helipads**, none flagged with scheduled service in the current snapshot.
+2. **Destinations.** I chose six destinations across the Eastern Himalaya: Gangtok, Pelling and Lachung in Sikkim; Darjeeling and Kalimpong in West Bengal's hills; and Thimphu in Bhutan. I geocoded each with OpenStreetMap and checked every result against a bounding box. That check caught an error: a plain search for "Pelling" returns a village in Tibet.
+3. **Candidate airports.** I took every airport in India, Nepal, Bhutan and Bangladesh flagged with scheduled service. A local report indicates that Taplejung in Nepal is functioning but has no scheduled flights, so I removed it.
+4. **Straight line vs. road.** For each destination I found the three nearest airports by straight-line distance, then measured the driving distance to each using the [OSRM](https://project-osrm.org/) routing engine on OpenStreetMap roads. The ratio of the two is the *circuity*: 1.0 means the road runs perfectly straight.
+
+### Exhibit 1 · Straight-line vs. road distance to the three nearest scheduled airports
+
+| **Destination** | **Airport** | **Straight line** | **By road** | **Ratio** |
+|---|---|---|---|---|
+| Gangtok | Bagdogra (India) | 77 km | 124 km | 1.6× |
+| Gangtok | Paro (Bhutan) | 81 km | 358 km | 4.4× |
+| Gangtok | Bhadrapur (Nepal) | 100 km | 163 km | 1.6× |
+| Pelling | Bagdogra (India) | 70 km | 133 km | 1.9× |
+| Pelling | Bhadrapur (Nepal) | 83 km | 172 km | 2.1× |
+| Pelling | Tumling Tar (Nepal) | 103 km | 379 km | 3.7× |
+| Lachung | **Paro (Bhutan)** | **74 km** | **428 km** | **5.8×** |
+| Lachung | Bagdogra (India) | 119 km | 195 km | 1.6× |
+| Lachung | Bhadrapur (Nepal) | 141 km | 233 km | 1.7× |
+| Darjeeling | Bagdogra (India) | 40 km | 71 km | 1.8× |
+| Darjeeling | Bhadrapur (Nepal) | 55 km | 92 km | 1.7× |
+| Darjeeling | Tumling Tar (Nepal) | 110 km | 299 km | 2.7× |
+| Kalimpong | Bagdogra (India) | 46 km | 78 km | 1.7× |
+| Kalimpong | Bhadrapur (Nepal) | 68 km | 116 km | 1.7× |
+| Kalimpong | Paro (Bhutan) | 101 km | 311 km | 3.1× |
+| Thimphu | Paro (Bhutan) | 22 km | 48 km | 2.2× |
+| Thimphu | Bathpalathang (Bhutan) | 110 km | 256 km | 2.3× |
+| Thimphu | Bagdogra (India) | 156 km | 305 km | 2.0× |
+
+## What the data shows
+
+**Every road is longer than the line on the map.** Even to the airport each destination actually uses, the road runs 1.6 to 2.3 times the straight-line distance. Gangtok to Bagdogra is 77 km as the crow flies and 124 km by road.
+
+<Photo src={scatter} alt="Scatter plot of straight-line distance against road distance for 18 destination-airport pairs. Every point sits above the diagonal; cross-border routes sit highest." caption="Exhibit 2 · Every route sits above the diagonal. The furthest outliers are routes that cross into Bhutan or the Nepali hills." wide />
+
+**In the most enclosed valley, straight-line distance picks the wrong airport, in the wrong country.** Measured as a straight line, Lachung's nearest airport is Paro in Bhutan, 74 km away. By road it is 428 km, nearly six times further. The airport Lachung really depends on is Bagdogra, at 195 km.
+
+**Cross-border airports look much closer than they are.** Every ratio above 3 in the study is a route into Bhutan or the Nepali hills. Paro ranks second for Gangtok by straight line and drops to last by road.
+
+<Photo src={gangtok} alt="Bar chart for Gangtok comparing straight-line and road distances to Bagdogra, Paro and Bhadrapur." caption="Exhibit 3 · From Gangtok, Paro looks as close as Bagdogra on a map. By road it is almost three times further." />
+
+**It's the terrain, not the border alone.** Bhadrapur in Nepal is also across a border, but it sits on the plains, and its ratios (1.6 to 2.1) look like any domestic route. The distortion is largest where ridges and river valleys lie between a destination and the airport. The border then removes the routes that would otherwise shorten the journey.
+
+**What this means for tourism planning.** For five of the six destinations, straight-line distance still names the right airport. So the measure isn't useless; it's biased. It consistently understates the journey in mountain terrain, and it fails outright in enclosed valleys near borders. An accessibility index built on straight-line distance would rank the northern Sikkim valleys as better connected than they are, which is exactly where it would mislead planning decisions most.
+
+## Limitations
+
+- **Small sample.** Six destinations and three airports each. This is an illustration of a measurement bias, not a statistical estimate of it.
+- **Distance, not time.** OSRM's speed model is not realistic for Himalayan roads, so I report road distances only. Journey times, landslide closures and permit rules for different nationalities would all widen the gap.
+- **Crowd-sourced flags.** Whether an airport has scheduled service comes from OurAirports, a volunteer-maintained snapshot. I made two documented corrections (Pedong, Taplejung) and could not verify Tumling Tar's current schedule. Pakyong's own service has been intermittent since it opened.
+- **Older route data.** I used OpenFlights only as a background check on route depth, and its route file dates from 2014, before Pakyong opened.
+
+## Reproduce it
+
+Everything runs from one Jupyter notebook using public data: OurAirports, OpenFlights, OpenStreetMap via Nominatim, and OSRM. The notebook documents each manual correction with its source.
+
+**Code and data:** [github.com/Haji12345/air-connectivity-eastern-himalaya](https://github.com/Haji12345/air-connectivity-eastern-himalaya)
+
+## What I learned
+
+<Lesson label="The lesson">Two small ground-truth corrections, a helipad on the wrong side of a state border and an airport without scheduled flights, cut one of my headline findings in half. I had first concluded that straight-line distance picked the wrong airport for two of the three Sikkim destinations; after the corrections it was one. The finding that survived is narrower and much harder to argue with. Check the data against what you know about the ground before you trust the code.</Lesson>
