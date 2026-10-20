@@ -23,5 +23,5 @@ media:
     poster: '../../assets/photos/kunjham/poolside-poster.jpg'
     alt: 'Walking past the poolside loungers at Kunjham Retreat'
 ---
-Built kunjham.in and ran the social media behind the brand — posting, planning and the content
+Built kunjham.in and ran the brand's social media, from planning and posting to the content
 that brought guests in.

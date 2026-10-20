@@ -23,6 +23,6 @@ media:
     src: '../../assets/photos/kengbari/interior.jpg'
     alt: 'Bright interior with timber details and a tree growing through the room at Kengbari'
 ---
-Ran the whole digital side of the business from zero: built the website and the brand presence,
-set up eZee and the channel manager, onboarded the OTA listings, and ran social media and the
-growth strategy behind the bookings.
+Set up the whole digital side of the business from nothing. I built the website and the brand's
+online presence, set up eZee and the channel manager, listed the retreat on booking sites, and
+ran the social media and growth plan behind the bookings.

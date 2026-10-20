@@ -26,7 +26,8 @@ media:
     alt: 'Drone view over the red roofs of Poreč old town and the Adriatic'
 ---
 
-Built a two-engine social media strategy — one engine for prestige, one for reach — with a
-teammate. Produced Instagram carousels for Istrian cycling routes, including the Parenzana
-trail, Motovun, Grožnjan and Završje; wrote captions and promotional copy for the hotel's
-apartments and experiences; and cut promotional videos in DaVinci Resolve.
+With a teammate, I planned the hotel's social media in two parts: posts that build its image,
+and posts made to reach new people. I made Instagram carousels about Istrian cycling routes,
+including the Parenzana trail, Motovun, Grožnjan and Završje. I also wrote captions and
+promotional copy for the hotel's apartments and experiences, and edited promotional videos in
+DaVinci Resolve.

@@ -24,9 +24,9 @@ const caseStudies = (await getCaseStudies())
 const tourismCount = (await getTourismProjects()).length;
 
 const stats = [
-	{ value: '125+', label: 'Smallholder farmers' },
+	{ value: '150+', label: 'Smallholder farmers' },
 	{ value: '3', label: 'Himalayan districts' },
-	{ value: '5 yrs', label: 'Operating ApiCare' },
+	{ value: '5 yrs', label: 'Building ApiCare' },
 	{ value: '0', label: 'KPMG audit findings, 3 cycles' },
 	{ value: '5', label: 'RAMP training sites, 2026–27' },
 ];
@@ -35,10 +35,10 @@ const ventures = [
 	{
 		href: 'https://www.apicare.co.in',
 		external: true,
-		tag: 'Operating · 2021 →',
+		tag: 'Founder · 2021 →',
 		name: 'ApiCare',
-		desc: 'Agri-tech venture in Sikkim, selected by the Government of Sikkim as a private-sector partner under RAMP — a World Bank-financed MSME programme. Honey production with smallholder beekeepers. Zero KPMG findings across three audit cycles.',
-		stats: ['Govt of Sikkim RAMP partner', '104 trained under RAMP', '125+ farmer network'],
+		desc: 'A honey business in Sikkim that buys from smallholder beekeepers. I founded it in 2021 and now advise the team on strategy. In 2025 the Government of India (Dept. of Commerce & Industries, Sikkim) chose it as a training partner under RAMP, a World Bank-financed MSME programme. Three KPMG audit cycles so far, with no findings.',
+		stats: ['RAMP training partner', '125+ trained under RAMP', '150+ farmer network'],
 		links: [
 			{ href: 'https://www.apicare.co.in', label: 'apicare.co.in' },
 			{ href: 'https://www.instagram.com/apicare/', label: '@apicare', instagram: true },
@@ -54,17 +54,17 @@ const ventures = [
 		external: true,
 		tag: 'In build · 2026',
 		name: 'FarmLedger',
-		desc: "AI traceability and credit-profile platform for the world's smallest farms. It records every trade a farmer makes with customers, businesses and FPOs, and multimodal AI turns that transaction history into a credit profile a bank can underwrite against.",
-		stats: ['125+ farmers', 'MBA thesis project', 'Live prototype'],
+		desc: 'My MBA thesis project: a record-keeping platform for very small farms. It logs each sale a farmer makes to customers, businesses and FPOs, and AI turns that history into a credit profile a bank could lend against.',
+		stats: ['150+ farmers', 'MBA thesis project', 'Live prototype'],
 		links: [{ href: 'https://haji12345.github.io/Apicare-Farmers/', label: 'Live prototype' }],
 		media: [{ type: 'image' as const, src: farmledgerMark, alt: 'FarmLedger mark' }],
 	},
 	{
 		href: '/tourism',
 		external: false,
-		tag: 'Independent Consultant · 2023 →',
+		tag: 'Consulting · 2023 →',
 		name: 'Tourism & Hospitality',
-		desc: 'Websites, digital presence and content for homestays and retreats in the Eastern Himalaya, and social media for Hotel Poreč on the Adriatic.',
+		desc: 'Websites, booking systems and social media for homestays and retreats in Sikkim and Darjeeling. In 2026, social media for Hotel Poreč in Croatia.',
 		stats: [`${tourismCount} projects`, 'Web design', 'Social media'],
 		links: [{ href: '/tourism', label: 'See the projects' }],
 		media: [
@@ -89,14 +89,15 @@ const ventures = [
 			<!-- HERO -->
 			<section class="hero wrap">
 				<div class="hero-copy">
-					<span class="eyebrow reveal">Programme delivery · Digital for development</span>
+					<span class="eyebrow reveal">Digital transformation · Operations · Data</span>
 					<h1 class="display hero-title reveal">
 						Building where the <span class="accent">rails</span> don't exist yet.
 					</h1>
 					<p class="lead reveal">
-						Five years building ApiCare in Sikkim, working with 125+ smallholder farmers — selected by
-						the Government of Sikkim as a private-sector partner under RAMP, a World Bank-financed MSME
-						programme. Now building FarmLedger. Erasmus Mundus MBA in Impact Entrepreneurship.
+						I started ApiCare in Sikkim in 2021 and built its honey supply chain with 150+ smallholder
+						farmers, from the farm work to the systems, reports and funding behind it. I also put small
+						hotels online for the first time. Now I'm building FarmLedger and finishing an Erasmus Mundus
+						MBA in Impact Entrepreneurship.
 					</p>
 					<div class="hero-actions reveal">
 						<a href="mailto:hello@nikhilpradhan.in" class="btn">Get in touch <span aria-hidden="true">↗</span></a>
@@ -109,7 +110,8 @@ const ventures = [
 					<figcaption class="hero-card">
 						<span class="hero-card-label">Now</span>
 						<span>Liège, Belgium · Graduating Dec 2026</span>
-						<span class="hero-card-sub">English · Hindi · Nepali · French (A2) · Open to relocating</span>
+						<span class="hero-card-sub">Internships now · full-time from March 2027</span>
+						<span class="hero-card-sub">English · Hindi · Nepali · French (A2)</span>
 					</figcaption>
 				</figure>
 			</section>
@@ -133,8 +135,8 @@ const ventures = [
 				<div class="section-head">
 					<span class="eyebrow">Selected work</span>
 					<div>
-						<h2 class="h2">Ventures built on the ground.</h2>
-						<p>Two interlocking ventures in Sikkim — the supply chain and the data layer that makes it bankable — plus hospitality work from the Himalaya to the Adriatic.</p>
+						<h2 class="h2">What I've built.</h2>
+						<p>ApiCare is the honey supply chain. FarmLedger is the record that could make its farmers bankable. Alongside both, I've done digital work for hotels and homestays.</p>
 					</div>
 				</div>
 
@@ -179,17 +181,17 @@ const ventures = [
 			<section class="band" aria-label="Approach">
 				<div class="wrap band-inner">
 					<h2 class="display band-title">
-						Built in the field,<br /><span class="band-accent">not in a deck.</span>
+						Most of it I learned<br /><span class="band-accent">in the field.</span>
 					</h2>
 					<div class="band-copy">
 						<p>
-							ApiCare was selected by the Government of Sikkim as a private-sector partner under RAMP, a
-							World Bank-financed MSME programme: government counterparts, KPMG audit cycles, and
-							training for smallholder farmers.
+							Under RAMP, ApiCare worked with government officials, went through KPMG audit cycles and
+							trained smallholder farmers. Before that, I set up websites, booking systems and reporting
+							for small hotels that had none.
 						</p>
 						<p>
-							That is the experience I'm bringing to programme management and digital-for-development
-							roles.
+							I want to do this kind of digital transformation work, on systems, reporting and data, inside
+							a larger organisation.
 						</p>
 						<a href="/about" class="btn band-btn">More about me <span aria-hidden="true">→</span></a>
 					</div>
@@ -203,8 +205,8 @@ const ventures = [
 						<div class="case-preview-head">
 							<div>
 								<span class="eyebrow">Case study</span>
-								<h2 id="case-preview-title" class="h2">The work behind the claims.</h2>
-								<p>What the problem was, what I built, and what I learned in the field.</p>
+								<h2 id="case-preview-title" class="h2">How the work actually went.</h2>
+								<p>Each case covers the problem, what I tried, what went wrong and what I'd tell someone doing the same work.</p>
 							</div>
 							<a href="/case-studies" class="btn case-preview-all">View all case studies <span aria-hidden="true">→</span></a>
 						</div>
@@ -231,8 +233,9 @@ const ventures = [
 						<span class="eyebrow cta-eyebrow">About</span>
 						<h2 class="display cta-title">Let's talk.</h2>
 						<p class="cta-text">
-							I build operational infrastructure for places spreadsheets forgot. CEO of ApiCare since 2021,
-							Erasmus Mundus MBA Fellow across Croatia, Lithuania, and Belgium, graduating December 2026.
+							I founded ApiCare in 2021 and now advise its team. I'm in the last semester of an Erasmus
+							Mundus MBA (Croatia, Lithuania, Belgium) and graduate in December 2026. I can start an
+							internship now, or a full-time role from March 2027.
 						</p>
 					</div>
 					<div class="cta-actions">
